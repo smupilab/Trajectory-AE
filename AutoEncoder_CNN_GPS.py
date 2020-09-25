@@ -59,7 +59,7 @@ Y_train = np.reshape( Y_train, ( len( Y_train ), SIZE, SIZE, 1 ) )
 X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
 
 print( 'train shape (X, Y): ({},{})'.format( X_train.shape, Y_train.shape ) )
-print( 'test shape (X): ({})'.format( X_test ) )
+print( 'test shape (X): ({})'.format( X_test.shape ) )
 
 stdout.write( 'Finish Load Images! ' )
 
