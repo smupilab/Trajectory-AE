@@ -84,7 +84,7 @@ for i, channel in enumerate(encoding_channels):
 ## Decoding ##
 for channel in decoding_channels:
 	x = layers.Conv2D( channel, kernel, activation = acti, padding = pad )( x )
-	x = layers.UpSampling2D( pooling, padding = pad )( x )
+	x = layers.UpSampling2D( pooling )( x )
 
 output = layers.Conv2D( 1, kernel, activation = 'sigmoid', padding = 'same' )( x )
 
