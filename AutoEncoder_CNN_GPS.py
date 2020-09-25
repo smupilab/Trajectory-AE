@@ -17,7 +17,7 @@ stdout.write( 'Start Load Images... ' )
 import os, cv2, glob
 import numpy as np
 
-currDir = 'taejin/Taejin/TrajectoryAugmentation/'
+currDir = '/taejin/Taejin/TrajectoryAugmentation/'
 dataDir = currDir + 'Trajectory_Data/432-Image/'
 
 ## Load Train Data ##
