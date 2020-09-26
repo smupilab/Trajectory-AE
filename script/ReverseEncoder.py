@@ -81,7 +81,7 @@ decoding_channels = reversed( encoding_channels )
 input_img = layers.Input( shape = ( SIZE, SIZE, 1 ) )
 
 ## Decoding ##
-for channel in decoding_channels:
+for i, channel in enumerate(decoding_channels):
 	if not i:
 		x = layers.Conv2D( channel, kernel, activation = acti, padding = pad )( input_img )
 	else:
@@ -89,7 +89,7 @@ for channel in decoding_channels:
 	x = layers.UpSampling2D( pooling )( x )
 
 ## Encoding ##
-for i, channel in enumerate(encoding_channels):
+for channel in encoding_channels:
 	x = layers.Conv2D( channel, kernel, activation = acti, padding = pad )( x )
 	x = layers.MaxPooling2D( pooling, padding = pad )( x )
 
