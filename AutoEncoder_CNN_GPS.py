@@ -6,8 +6,11 @@ from tensorflow.keras import layers
 import sys
 stdout = sys.stdout
 
-output_stream = open( 'log.txt', 'wt' )
+file_name = 'AutuEncoder_CNN'
+output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
+error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
+sys.stderr = error_stream
 
 SIZE = 432
 
@@ -18,6 +21,7 @@ import os, cv2, glob
 import numpy as np
 
 currDir = '/taejin/Taejin/TrajectoryAugmentation/'
+saveDir = currDir + 'Trajectory-Augumentation/'
 dataDir = currDir + 'Trajectory_Data/432-Image/'
 
 ## Load Train Data ##
@@ -117,6 +121,7 @@ decoded_img = autoencoder.predict( X_test )
 
 import matplotlib.pyplot as plt
 
+os.chdir( saveDir )
 n = 10
 plt.figure( figsize = ( 20, 4 ) )
 for i in range( n ):
@@ -142,3 +147,4 @@ stdout.write( 'Finish Testing Model! ' )
 stdout.write( 'Good job' )
 
 output_stream.close()
+error_stream.close()
