@@ -6,7 +6,7 @@ from tensorflow.keras import layers
 import sys
 stdout = sys.stdout
 
-file_name = 'ReverseEncoder'
+file_name = 'ReverseEncoder_(256x256)'
 output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
 error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
@@ -25,6 +25,12 @@ saveDir = currDir + 'Trajectory-Augumentation/'
 dataDir = currDir + 'Trajectory_Data/432-Image/'
 
 ## Load Train Data ##
+def GetImage( path ):
+	img = cv2.imread( path, 0 )
+	resized = cv2.resize( img, ( SIZE, SIZE ) )
+
+	return resized
+
 X_trainDir = dataDir + 'Input-50/'
 Y_trainDir = dataDir + 'Val/'
 
@@ -33,12 +39,12 @@ X_train, Y_train = [ ], [ ]
 os.chdir( X_trainDir )
 X_trainFiles = glob.glob( '*png' )
 for f in X_trainFiles:
-	X_train.append( cv2.imread( f, 0 ) )
+	X_train.append( GetImage( f ) )
 
 os.chdir( Y_trainDir )
 Y_trainFiles = glob.glob( '*png' )
 for f in Y_trainFiles:
-	Y_train.append( cv2.imread( f, 0 ) )
+	Y_train.append( GetImage( f ) )
 
 ## Load Test Data ##
 testDir = dataDir + 'Test_Image/'
@@ -48,7 +54,7 @@ X_test = [ ]
 os.chdir( testDir )
 testFiles = glob.glob( '*png' )
 for f in testFiles:
-	X_test.append( cv2.imread( f, 0 ) )
+	X_test.append( GetImage( f ) )
 
 ## Resize Images for CNN ##
 X_train, Y_train = np.array( X_train ), np.array( Y_train )
