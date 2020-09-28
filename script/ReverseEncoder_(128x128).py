@@ -6,7 +6,7 @@ from tensorflow.keras import layers
 import sys
 stdout = sys.stdout
 
-file_name = 'ReverseEncoder_(256x256)'
+file_name = 'ReverseEncoder_(128x128)'
 output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
 error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
