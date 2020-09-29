@@ -129,7 +129,7 @@ import matplotlib.pyplot as plt
 
 os.chdir( saveDir )
 n = 10
-plt.figure( figsize = ( 20, 4 ) )
+fig = plt.figure( figsize = ( 20, 4 ) )
 for i in range( n ):
 	ax = plt.subplot( 2, n, i + 1 )
 	plt.imshow( X_test[i].reshape( SIZE, SIZE ) )
@@ -145,7 +145,7 @@ for i in range( n ):
 	ax.get_xaxis().set_visible( False )
 	ax.get_yaxis().set_visible( False )
 
-plt.savefig( 'Result.png', dpi = 300 )
+fig.savefig( 'Result.png', dpi = 300 )
 plt.show()
 
 stdout.write( 'Finish Testing Model! ' )
