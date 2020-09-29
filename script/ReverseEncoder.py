@@ -12,7 +12,7 @@ error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
 sys.stderr = error_stream
 
-SIZE = 256
+SIZE = 432
 
 # Image Load #
 stdout.write( 'Start Load Images... ' )
