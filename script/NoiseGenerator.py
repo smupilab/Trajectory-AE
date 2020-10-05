@@ -16,7 +16,7 @@ for i, file in enumerate(files):
 	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
 
-	last_num = copy_file['num'][-1]
+	last_num = copy_file.shape[0]
 
 	number_noise = int(copy_file.shape[0] / 0.3)
 	noises = np.random.normal( ( number_noise, 2 ) )
