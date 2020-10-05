@@ -59,7 +59,7 @@ for i in range( n ):
 
 	ax = plt.subplot( 2, n, n + i + 1 )
 
-	file_name = workDir + original_files[i]
+	file_name = workDir + noise_files[i]
 	noise_csv = pd.read_csv( file_name, header = None )
 
 	datas = noise_csv.loc[i]
