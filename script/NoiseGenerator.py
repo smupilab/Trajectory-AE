@@ -32,7 +32,7 @@ for i, file in enumerate(files):
 	noise_data = pd.DataFrame(noise_data)
 	copy_file.append( noise_data, ignore_index = True )
 
-	copy_file.to_csv( workDir + 'noise_' + i + '.csv' )
+	copy_file.to_csv( workDir + 'noise_' + str(i) + '.csv' )
 
 # Plot 
 import matplotlib.pyplot as plt
