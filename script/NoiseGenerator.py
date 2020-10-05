@@ -24,6 +24,7 @@ for i, file in enumerate(files):
 	noise_data = { 'lat' : [ ], 'long' : [ ], 'num' : [ ] }
 	for i in range( number_noise ):
 		random_value = random.randint( 0, last_num );
+		print( random_value )
 		noise_data['lat'].append( copy_file['lat'][random_value] + noises[i][0] )
 		noise_data['long'].append( copy_file['long'][random_value] + noises[i][1] )
 		noise_data['num'].append( last_num + ( i + 1 ) )
