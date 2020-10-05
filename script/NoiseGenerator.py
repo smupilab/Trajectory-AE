@@ -48,7 +48,7 @@ for i in range( n ):
 	ax = plt.subplot( 2, n, i + 1 )
 
 	file_name = csvDir + original_files[i]
-	original_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'] header = None )
+	original_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'], header = None )
 
 	datas = ( original_csv.loc['lat'], original_csv.loc['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
@@ -60,7 +60,7 @@ for i in range( n ):
 	ax = plt.subplot( 2, n, n + i + 1 )
 
 	file_name = workDir + noise_files[i]
-	noise_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'] header = None )
+	noise_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'], header = None )
 
 	datas = ( noise_csv.loc['lat'], noise_csv.loc['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
