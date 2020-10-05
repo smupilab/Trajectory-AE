@@ -47,7 +47,8 @@ n = 10
 for i in range( n ):
 	ax = plt.subplot( 2, n, i + 1 )
 
-	original_csv = pd.read_csv( original_files[i], header = None )
+	file_name = csvDir + original_files[i]
+	original_csv = pd.read_csv( file_name, header = None )
 
 	datas = original_csv.loc[i]
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
@@ -58,7 +59,8 @@ for i in range( n ):
 
 	ax = plt.subplot( 2, n, n + i + 1 )
 
-	noise_csv = pd.read_csv( noise_files[i], header = None )
+	file_name = workDir + original_files[i]
+	noise_csv = pd.read_csv( file_name, header = None )
 
 	datas = noise_csv.loc[i]
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
