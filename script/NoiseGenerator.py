@@ -19,7 +19,7 @@ for idx, file in enumerate(files):
 
 	last_num = copy_file.shape[0] - 1
 
-	number_noise = int(copy_file.shape[0] / 0.3)
+	number_noise = int(copy_file.shape[0] * 0.3)
 	noises = np.random.normal( size = ( number_noise, 2 ) )
 
 	noise_data = { 'lat' : [ ], 'long' : [ ], 'num' : [ ] }
