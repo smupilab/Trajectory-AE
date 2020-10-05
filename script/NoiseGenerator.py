@@ -15,24 +15,57 @@ files = glob.glob( '*csv' )
 os.chdir( workDir )
 
 for i, file in enumerate(files):
-	csv_file = pd.read_csv( file, name = [ 'lat', 'long', 'num' ], header = None )
+	original_file = pd.read_csv( file, name = [ 'lat', 'long', 'num' ], header = None )
+	copy_file = pd.DataFrame.copy( original_file )
 
-	lat_range = ( min( csv_file['lat'] ), max( csv_file['lat'] ) )
-	long_range = ( min( csv_file['long'] ), max( csv_file['long'] ) )
+	last_num = copy_file['num'][-1]
 
-	last_num = csv_file['num'][-1]
+	number_noise = int(copy_file.shape[0] / 0.3)
+	noises = np.random.normal( ( number_noise, 2 ) )
 
-	noise_size = int(csv_file.shape[0] / 0.3)
-	noises = np.random.normal( ( noise_size, 2 ) )
-	for i in range( noise_size ):
+	noise_data = { 'lat' : [ ], 'long' : [ ], 'num' : [ ] }
+	for i in range( number_noise ):
 		random_value = random.randint( 0, last_num );
+		noise_data['lat'].append( copy_file['lat'][random_value] + noises[i][0] )
+		noise_data['long'].append( copy_file['long'][random_value] + noises[i][1] )
+		noise_data['num'].append( last_num + ( i + 1 ) )
 
-		noise_data = {
-			'lat' : [ csv_file['lat'][random_value] + noises[i][0] ],
-			'long' : [ csv_file['long'][random_value] + noises[i][1] ],
-			'num' : [ last_num + ( i + 1 ) ]
-		}
-		noise_data = pd.dataFrame(noise_data)
-		csv_file.append( noise_data, ignore_index = True )
+	noise_data = pd.DataFrame(noise_data)
+	copy_file.append( noise_data, ignore_index = True )
 
-	csv_file.to_csv( 'noise_' + i + '.csv' )
+	copy_file.to_csv( 'noise_' + i + '.csv' )
+
+# Plot 
+import matplotlib.pyplot as plt
+
+os.chdir( csvDir )
+original_files = glob.glob( '*csv' )
+
+os.chdir( workDir )
+noise_files = glob.glob( '*csv' )
+
+n = 10
+for i in range( n ):
+	ax = plt.subplot( 2, n, i + 1 )
+
+	original_csv = pd.read_csv( original_files[i], header = None )
+
+	datas = original_csv.loc[i]
+	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
+	plt.axis( 'off' )
+
+	ax.get_xaxis().set_visible( False )
+	ax.get_yaxis().set_visible( False )
+
+	ax = plt.subplot( 2, n, n + i + 1 )
+
+	noise_csv = pd.read_csv( noise_files[i], header = None )
+
+	datas = noise_csv.loc[i]
+	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
+	plt.axis( 'off' )
+
+	ax.get_xaxis().set_visible( False )
+	ax.get_yaxis().set_visible( False )
+
+plt.savefig( 'Result.png', 300 )
