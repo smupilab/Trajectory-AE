@@ -19,7 +19,7 @@ for i, file in enumerate(files):
 	last_num = copy_file.shape[0]
 
 	number_noise = int(copy_file.shape[0] / 0.3)
-	noises = np.random.normal( ( number_noise, 2 ) )
+	noises = np.random.normal( size = ( number_noise, 2 ) )
 
 	noise_data = { 'lat' : [ ], 'long' : [ ], 'num' : [ ] }
 	for i in range( number_noise ):
