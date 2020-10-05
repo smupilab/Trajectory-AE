@@ -5,7 +5,7 @@ import numpy as np
 
 dataDir = '/taejin/Taejin/TrajectoryAugmentation/Trajectory_Data/'
 csvDir = dataDir + '직접찍은데이터/'
-workDir = dataDir + 'NoiseData/'
+workDir = dataDir + 'NoiseDatas/'
 
 # Load csv Files
 os.chdir( csvDir )
