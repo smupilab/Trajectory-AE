@@ -50,7 +50,7 @@ for i in range( n ):
 	file_name = csvDir + original_files[i]
 	original_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'], header = None )
 
-	datas = ( original_csv.loc['lat'], original_csv.loc['long'] )
+	datas = ( original_csv['lat'], original_csv['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
 	plt.axis( 'off' )
 
@@ -62,7 +62,7 @@ for i in range( n ):
 	file_name = workDir + noise_files[i]
 	noise_csv = pd.read_csv( file_name, names = ['lat', 'long', 'num'], header = None )
 
-	datas = ( noise_csv.loc['lat'], noise_csv.loc['long'] )
+	datas = ( noise_csv['lat'], noise_csv['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
 	plt.axis( 'off' )
 
