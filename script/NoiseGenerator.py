@@ -69,4 +69,4 @@ for i in range( n ):
 	ax.get_xaxis().set_visible( False )
 	ax.get_yaxis().set_visible( False )
 
-plt.savefig( 'Result.png', 300 )
+plt.savefig( 'Result.png', dpi = 300 )
