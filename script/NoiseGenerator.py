@@ -12,8 +12,6 @@ os.chdir( csvDir )
 files = glob.glob( '*csv' )
 
 # Add Noise to csv Files
-os.chdir( workDir )
-
 for i, file in enumerate(files):
 	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
@@ -33,7 +31,7 @@ for i, file in enumerate(files):
 	noise_data = pd.DataFrame(noise_data)
 	copy_file.append( noise_data, ignore_index = True )
 
-	copy_file.to_csv( 'noise_' + i + '.csv' )
+	copy_file.to_csv( workDir + 'noise_' + i + '.csv' )
 
 # Plot 
 import matplotlib.pyplot as plt
