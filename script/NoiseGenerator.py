@@ -15,7 +15,7 @@ files = glob.glob( '*csv' )
 os.chdir( workDir )
 
 for i, file in enumerate(files):
-	original_file = pd.read_csv( file, name = [ 'lat', 'long', 'num' ], header = None )
+	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
 
 	last_num = copy_file['num'][-1]
