@@ -12,7 +12,7 @@ os.chdir( csvDir )
 files = glob.glob( '*csv' )
 
 # Add Noise to csv Files
-for i, file in enumerate(files):
+for idx, file in enumerate(files):
 	print( 'Add Noise to', file )
 	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
@@ -32,7 +32,7 @@ for i, file in enumerate(files):
 	noise_data = pd.DataFrame(noise_data)
 	copy_file.append( noise_data, ignore_index = True )
 
-	copy_file.to_csv( workDir + 'noise_' + str(i) + '.csv' )
+	copy_file.to_csv( workDir + 'noise_' + str(idx) + '.csv' )
 
 # Plot 
 import matplotlib.pyplot as plt
@@ -50,7 +50,7 @@ for i in range( n ):
 	file_name = csvDir + original_files[i]
 	original_csv = pd.read_csv( file_name, header = None )
 
-	datas = original_csv.loc[i]
+	datas = ( original_csv.loc['loc'], original_csv.loc['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
 	plt.axis( 'off' )
 
@@ -62,7 +62,7 @@ for i in range( n ):
 	file_name = workDir + noise_files[i]
 	noise_csv = pd.read_csv( file_name, header = None )
 
-	datas = noise_csv.loc[i]
+	datas = ( noise_csv.loc['loc'], noise_csv.loc['long'] )
 	plt.scatter( datas[0], datas[1], c = 'black', s = 1 )
 	plt.axis( 'off' )
 
