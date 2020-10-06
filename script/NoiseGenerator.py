@@ -5,7 +5,10 @@ import numpy as np
 
 dataDir = '/taejin/Taejin/TrajectoryAugmentation/Trajectory_Data/'
 csvDir = dataDir + '직접찍은데이터/'
-workDir = dataDir + 'NoiseDatas/'
+workDir = dataDir + 'Noises/'
+
+noiseDir = workDir + 'NoiseDatas/'
+originDir = workDir + 'OriginDatas/'
 
 # Load csv Files
 os.chdir( csvDir )
@@ -16,6 +19,9 @@ for idx, file in enumerate(files):
 	print( 'Add Noise to', file )
 	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
+
+	num = str(idx) if ( idx > 9 ) else '0' + str(idx)
+	copy_file.to_csv( originDir + 'origin_' + num + '.csv', header = False, index = False )
 
 	last_num = copy_file.shape[0] - 1
 
@@ -32,16 +38,15 @@ for idx, file in enumerate(files):
 	noise_data = pd.DataFrame(noise_data)
 	copy_file.append( noise_data, ignore_index = True )
 
-	num = str(idx) if idx > 9 else '0' + str(idx)
-	copy_file.to_csv( workDir + 'noise_' + num + '.csv', header = False, index = False )
+	copy_file.to_csv( noiseDir + 'noise_' + num + '.csv', header = False, index = False )
 
 # Plot 
 import matplotlib.pyplot as plt
 
-os.chdir( csvDir )
+os.chdir( originDir )
 original_files = glob.glob( '*csv' )
 
-os.chdir( workDir )
+os.chdir( noiseDir )
 noise_files = glob.glob( '*csv' )
 
 n = 10
