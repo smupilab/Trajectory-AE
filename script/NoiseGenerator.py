@@ -32,7 +32,8 @@ for idx, file in enumerate(files):
 	noise_data = pd.DataFrame(noise_data)
 	copy_file.append( noise_data, ignore_index = True )
 
-	copy_file.to_csv( workDir + 'noise_' + str(idx) + '.csv' )
+	num = str(idx) if idx > 9 else '0' + str(idx)
+	copy_file.to_csv( workDir + 'noise_' + num + '.csv', header = False, index = False )
 
 # Plot 
 import matplotlib.pyplot as plt
