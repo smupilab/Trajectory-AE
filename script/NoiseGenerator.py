@@ -5,8 +5,8 @@ import numpy as np
 
 dataDir = '/taejin/Taejin/TrajectoryAugmentation/Trajectory_Data/'
 csvDir = dataDir + '직접찍은데이터/'
-workDir = dataDir + 'Noises/'
 
+workDir = dataDir + 'Noises/'
 noiseDir = workDir + 'NoiseDatas/'
 originDir = workDir + 'OriginDatas/'
 
@@ -17,7 +17,7 @@ files = glob.glob( '*csv' )
 # Add Noise to csv Files
 for idx, file in enumerate(files):
 	print( 'Add Noise to', file )
-	original_file = pd.read_csv( file, names = [ 'lat', 'long', 'num' ], header = None )
+	original_file = pd.read_csv( filese, names = [ 'lat', 'long', 'num' ], header = None )
 	copy_file = pd.DataFrame.copy( original_file )
 
 	num = str(idx) if ( idx > 9 ) else '0' + str(idx)
