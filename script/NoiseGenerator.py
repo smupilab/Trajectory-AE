@@ -21,7 +21,7 @@ for idx, file in enumerate(files):
 	copy_file = pd.DataFrame.copy( original_file )
 
 	num = str(idx) if ( idx > 9 ) else '0' + str(idx)
-	copy_file.to_csv( originDir + 'origin_' + num + '.csv', header = False, index = False )
+	original_file.to_csv( originDir + 'origin_' + num + '.csv', header = False, index = False )
 
 	last_num = copy_file.shape[0] - 1
 
