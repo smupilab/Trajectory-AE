@@ -8,9 +8,9 @@ error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
 sys.stderr = error_stream
 
-SIZE = 512
-
-# Image Load #
+############################
+######## Image Load ########
+############################
 stdout.write( 'Start Load Images... \n' )
 
 import os, cv2, glob
@@ -21,6 +21,7 @@ saveDir = currDir + 'Trajectory-Augumentation/'
 dataDir = currDir + 'Trajectory_Data/432-Image/'
 
 ## Load Train Data ##
+SIZE = 512
 def GetImage( path ):
 	img = cv2.imread( path, 0 )
 	resized = cv2.resize( img, ( SIZE, SIZE ) )
@@ -71,7 +72,10 @@ print( 'test shape (X): ({})'.format( X_test.shape ) )
 
 stdout.write( 'Finish Load Images! \n' )
 
-# Construct Model #
+#############################
+###### Construct Model ######
+#############################
+
 stdout.write( 'Start Make Model... \n' )
 
 import tensorflow as tf
@@ -80,21 +84,19 @@ from tensorflow.keras import layers
 from tensorflow.keras.applications.vgg16 import VGG16
 
 ## Hyper Parameter ##
-kernel = 4
-pooling = ( 2, 2 )
 acti, pad = 'relu', 'same'
-encoding_channels = [ 64, 32, 16 ]
-decoding_channels = reversed( encoding_channels )
 
 ## Input Image ##
-input_img = layers.Input( shape = ( SIZE, SIZE, 1 ) )
+input_img = layers.Input( shape = ( SIZE, SIZE, 3 ) )
 
+## Load VGG
 vgg16 = VGG16( include_top = False, weights = 'imagenet', input_tensor = input_img )
 
 f3 = vgg16.get_layer('block3_pool').output
 f4 = vgg16.get_layer('block4_pool').output
 f5 = vgg16.get_layer('block5_pool').output
 
+## Construct FCN_8S
 f5_conv1 = layers.Conv2D( 4086, 7, padding = pad, activation = acti )(f5)
 f5_drop1 = layers.Dropout( 0.5 )(f5_conv1)
 f5_conv2 = layers.Conv2D( 4086, 1, padding = pad, activation = acti )(f5_drop1)
@@ -112,14 +114,18 @@ merge2 = layers.add( [ f3_conv1, merge1_x2 ] )
 
 output = layers.Conv2DTranspose( 1, 16, 8, padding = pad, activation = None )(merge2)
 
+## Compile
 fcn_8s = keras.Model(input_img, output)
 fcn_8s.summary()
 
-fcn_8s.compile(optimizer = 'adam', loss = 'binary_crossentropy')
+fcn_8s.compile( optimizer = 'adam', loss = 'binary_crossentropy' )
 
 stdout.write( 'Finish Making Model! \n' )
 
-# Train Model #
+#############################
+######## Train Model ########
+#############################
+
 stdout.write( 'Start Training Model... \n' )
 
 ## Hyper Parameter ##
@@ -131,7 +137,10 @@ history = fcn_8s.fit( X_train, Y_train, epochs = EPOCH, batch_size = BATCH, shuf
 
 stdout.write( 'Finish Train Model! \n' )
 
-# Test Model #
+############################
+######## Test Model ########
+############################
+
 stdout.write( 'Start Testing Model... \n' )
 decoded_img = fcn_8s.predict( X_test )
 
