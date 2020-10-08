@@ -63,9 +63,9 @@ X_test = X_test.astype( 'float32' ) / 255.
 
 print( X_train.shape, Y_train.shape, X_test.shape )
 
-X_train = np.reshape( X_train, ( len( X_train ), SIZE, SIZE, 1 ) )
-Y_train = np.reshape( Y_train, ( len( Y_train ), SIZE, SIZE, 1 ) )
-X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
+X_train = np.reshape( X_train, ( len( X_train ), SIZE, SIZE, 3 ) )
+Y_train = np.reshape( Y_train, ( len( Y_train ), SIZE, SIZE, 3 ) )
+X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 3 ) )
 
 print( 'train shape (X, Y): ({},{})'.format( X_train.shape, Y_train.shape ) )
 print( 'test shape (X): ({})'.format( X_test.shape ) )
