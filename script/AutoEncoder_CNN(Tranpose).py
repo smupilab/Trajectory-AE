@@ -1,4 +1,4 @@
-# AutoEncoder_CNN_GPS.py
+# AutoEncoder_CNN(Tranpose).py
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -15,7 +15,7 @@ sys.stderr = error_stream
 SIZE = 432
 
 # Image Load #
-stdout.write( 'Start Load Images... ' )
+stdout.write( 'Start Load Images... \n' )
 
 import os, cv2, glob
 import numpy as np
@@ -27,7 +27,7 @@ dataDir = currDir + 'Trajectory_Data/432-Image/'
 ## Load Train Data ##
 def GetImage( path ):
 	img = cv2.imread( path, 0 )
-	resized = cv2.resize( img, ( SIZE, SIZE ))
+	resized = cv2.resize( img, ( SIZE, SIZE ) )
 
 X_trainDir = dataDir + 'Input-50/'
 Y_trainDir = dataDir + 'Val/'
@@ -62,6 +62,8 @@ X_train = X_train.astype( 'float32' ) / 255.
 Y_train = Y_train.astype( 'float32' ) / 255.
 X_test = X_test.astype( 'float32' ) / 255.
 
+print( X_train.shape, Y_train.shape, X_test.shape )
+
 X_train = np.reshape( X_train, ( len( X_train ), SIZE, SIZE, 1 ) )
 Y_train = np.reshape( Y_train, ( len( Y_train ), SIZE, SIZE, 1 ) )
 X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
@@ -69,10 +71,10 @@ X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
 print( 'train shape (X, Y): ({},{})'.format( X_train.shape, Y_train.shape ) )
 print( 'test shape (X): ({})'.format( X_test.shape ) )
 
-stdout.write( 'Finish Load Images! ' )
+stdout.write( 'Finish Load Images! \n' )
 
 # Construct Model #
-stdout.write( 'Start Make Model... ' )
+stdout.write( 'Start Make Model... \n' )
 
 ## Hyper Parameter ##
 kernel = ( 3, 3 )
@@ -105,10 +107,10 @@ autoencoder.compile( optimizer = 'adadelta', loss = 'binary_crossentropy' )
 
 autoencoder.summary()
 
-stdout.write( 'Finish Making Model! ' )
+stdout.write( 'Finish Making Model! \n' )
 
 # Train Model #
-stdout.write( 'Start Training Model... ' )
+stdout.write( 'Start Training Model... \n' )
 
 ## Hyper Parameter ##
 EPOCH = 50
@@ -117,10 +119,10 @@ SHUFFLE = True
 
 history = autoencoder.fit( X_train, Y_train, epochs = EPOCH, batch_size = BATCH, shuffle = SHUFFLE )
 
-stdout.write( 'Finish Train Model! ' )
+stdout.write( 'Finish Train Model! \n' )
 
 # Test Model #
-stdout.write( 'Start Testing Model... ' )
+stdout.write( 'Start Testing Model... \n' )
 decoded_img = autoencoder.predict( X_test )
 
 import matplotlib.pyplot as plt
@@ -146,9 +148,9 @@ for i in range( n ):
 plt.savefig( 'Result.png', dpi = 300 )
 plt.show()
 
-stdout.write( 'Finish Testing Model! ' )
+stdout.write( 'Finish Testing Model! \n' )
 
-stdout.write( 'Good job' )
+stdout.write( 'Good job\n' )
 
 output_stream.close()
 error_stream.close()
