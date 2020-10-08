@@ -24,7 +24,7 @@ dataDir = currDir + 'Trajectory_Data/432-Image/'
 SIZE = 512
 def GetImage( path ):
 	img = cv2.imread( path, 0 )
-	resized = cv2.resize( img, ( SIZE, SIZE ) )
+	resized = cv2.resize( img, ( SIZE, SIZE, 3 ) )
 
 	return resized
 
