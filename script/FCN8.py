@@ -100,7 +100,7 @@ f5 = vgg16.get_layer('block5_pool').output
 f5_conv1 = layers.Conv2D( 4086, 7, padding = pad, activation = acti )(f5)
 f5_drop1 = layers.Dropout( 0.5 )(f5_conv1)
 f5_conv2 = layers.Conv2D( 4086, 1, padding = pad, activation = acti )(f5_drop1)
-f5_drpo2 = layers.Dropout( 0.5 )(f5_conv2)
+f5_drop2 = layers.Dropout( 0.5 )(f5_conv2)
 f5_conv3 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f5_drop2)
 
 f5_conv3_x2 = layers.Conv2DTranspose( 1, 4, 2, use_bias = False, padding = pad, activation = acti )(f5_conv3)
