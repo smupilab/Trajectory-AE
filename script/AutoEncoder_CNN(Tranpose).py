@@ -29,6 +29,8 @@ def GetImage( path ):
 	img = cv2.imread( path, 0 )
 	resized = cv2.resize( img, ( SIZE, SIZE ) )
 
+	return resized
+
 X_trainDir = dataDir + 'Input-50/'
 Y_trainDir = dataDir + 'Val/'
 
