@@ -98,10 +98,10 @@ for i, channel in enumerate(encoding_channels):
 
 ## Decoding ##
 for channel in decoding_channels:
-	x = layers.Conv2DTranpose( channel, kernel, activation = acti, padding = pad )( x )
+	x = layers.Conv2DTranspose( channel, kernel, activation = acti, padding = pad )( x )
 	x = layers.UpSampling2D( pooling )( x )
 
-output = layers.Conv2DTranpose( 1, kernel, activation = 'sigmoid', padding = 'same' )( x )
+output = layers.Conv2DTranspose( 1, kernel, activation = 'sigmoid', padding = 'same' )( x )
 
 ## Compile Model ##
 autoencoder = keras.models.Model( input_img, output )
