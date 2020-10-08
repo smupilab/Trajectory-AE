@@ -92,25 +92,25 @@ input_img = layers.Input( shape = ( SIZE, SIZE, 3 ) )
 ## Load VGG
 vgg16 = VGG16( include_top = False, weights = 'imagenet', input_tensor = input_img )
 
+f2 = vgg16.get_layer('block2_pool').output
 f3 = vgg16.get_layer('block3_pool').output
 f4 = vgg16.get_layer('block4_pool').output
-f5 = vgg16.get_layer('block5_pool').output
 
 ## Construct FCN_8S
-f5_conv1 = layers.Conv2D( 4086, 7, padding = pad, activation = acti )(f5)
-f5_drop1 = layers.Dropout( 0.5 )(f5_conv1)
-f5_conv2 = layers.Conv2D( 4086, 1, padding = pad, activation = acti )(f5_drop1)
-f5_drop2 = layers.Dropout( 0.5 )(f5_conv2)
-f5_conv3 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f5_drop2)
+f4_conv1 = layers.Conv2D( 4086, 7, padding = pad, activation = acti )(f4)
+f4_drop1 = layers.Dropout( 0.5 )(f4_conv1)
+f4_conv2 = layers.Conv2D( 4086, 1, padding = pad, activation = acti )(f4_drop1)
+f4_drop2 = layers.Dropout( 0.5 )(f4_conv2)
+f4_conv3 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f4_drop2)
 
-f5_conv3_x2 = layers.Conv2DTranspose( 1, 4, 2, use_bias = False, padding = pad, activation = acti )(f5_conv3)
-f4_conv1 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f4)
+f4_conv3_x2 = layers.Conv2DTranspose( 1, 4, 2, use_bias = False, padding = pad, activation = acti )(f4_conv3)
+f3_conv1 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f3)
 
-merge1 = layers.add( [ f4_conv1, f5_conv3_x2 ] )
+merge1 = layers.add( [ f3_conv1, f4_conv3_x2 ] )
 merge1_x2 = layers.Conv2DTranspose( 1, 4, 2, use_bias = False, padding = pad, activation = acti )(merge1)
 
-f3_conv1 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f3)
-merge2 = layers.add( [ f3_conv1, merge1_x2 ] )
+f2_conv1 = layers.Conv2D( 1, 1, padding = pad, activation = None )(f2)
+merge2 = layers.add( [ f2_conv1, merge1_x2 ] )
 
 output = layers.Conv2DTranspose( 1, 16, 8, padding = pad, activation = None )(merge2)
 
