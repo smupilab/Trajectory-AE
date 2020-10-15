@@ -81,7 +81,7 @@ kernel = ( 3, 3 )
 pooling = ( 2, 2 )
 acti, pad = 'relu', 'same'
 encoding_channels = [ 64, 32, 16 ]
-decoding_channels = reversed( encoding_channels )
+decoding_channels = list(reversed( encoding_channels ))
 
 ## Input Image ##
 input_img = layers.Input( shape = ( SIZE, SIZE, 1 ) )
