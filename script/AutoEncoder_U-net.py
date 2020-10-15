@@ -91,7 +91,7 @@ conv1 = layers.Conv2D( encoding_channels[0], kernel, activation = acti, padding 
 pool1 = layers.MaxPooling2D( pooling, padding = pad )( conv1 )
 
 conv2 = layers.Conv2D( encoding_channels[1], kernel, activation = acti, padding = pad )( pool1 )
-pool2 = layer.MaxPooling2D( pooling, padding = pad )( conv2 )
+pool2 = layers.MaxPooling2D( pooling, padding = pad )( conv2 )
 
 conv3 = layers.Conv2D( encoding_channels[2], kernel, activation = acti, padding = pad )( pool2 )
 pool3 = layers.MaxPooling2D( pooling, padding= pad )( conv3 )
