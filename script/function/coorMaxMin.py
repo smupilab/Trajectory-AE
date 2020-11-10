@@ -1,9 +1,9 @@
-import os
 import pandas as pd
 
-def coorMaxMin(file):
-    minX, minY = (file.loc[0][0],file.loc[0][1])
-    maxX, maxY = (file.loc[0][0],file.loc[0][1])
+# Return Max and Min X,Y Coordinate Value of file
+def coorMaxMin(file: pd.DataFrame) -> (float, float, float, float):
+    minX, minY = (file.loc[0][0], file.loc[0][1])
+    maxX, maxY = (file.loc[0][0], file.loc[0][1])
     for i in range(0,file.shape[0]):
         x = file.loc[i][0]
         y = file.loc[i][1]
