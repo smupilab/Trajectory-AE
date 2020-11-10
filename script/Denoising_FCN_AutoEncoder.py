@@ -1,8 +1,11 @@
-# FCN_8S.py
+# Denoising_FCN_AutoEncoder.py
+
+# Denoising Trajectory Data using FCN(Fully Convolutional Network) Auto Encoder
+
 import sys
 stdout = sys.stdout
 
-file_name = 'FCN_8S'
+file_name = 'Denoising_FCN_AutoEncoder'
 output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
 error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream

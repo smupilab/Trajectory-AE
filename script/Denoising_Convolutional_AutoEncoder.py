@@ -1,4 +1,7 @@
-# AutoEncoder_CNN_GPS.py
+# Denoising_Convolutional_AutoEncoder.py
+
+# Denoising Trajectory Data using Convolutional Auto Encoder
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -6,7 +9,7 @@ from tensorflow.keras import layers
 import sys
 stdout = sys.stdout
 
-file_name = 'AutuEncoder_CNN'
+file_name = 'Denoising_Convolutional_AutoEncoder'
 output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
 error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream

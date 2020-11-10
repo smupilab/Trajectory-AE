@@ -1,4 +1,7 @@
-# AutoEncoder_CNN(Tranpose).py
+# Denoising_U-net_AutoEncoder.py
+
+# Denoising Trajectory Data using U-net Auto Encoder
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -6,16 +9,16 @@ from tensorflow.keras import layers
 import sys
 stdout = sys.stdout
 
-file_name = 'AutoEncoder_CNN(Tranpose)'
+file_name = 'Denoising_U-net_AutoEncoder'
 output_stream = open( 'log({}).txt'.format( file_name ), 'wt' )
 error_stream = open( 'errors({}).txt'.format( file_name ), 'wt' )
 sys.stdout = output_stream
 sys.stderr = error_stream
 
-SIZE = 432
+SIZE = 512
 
 # Image Load #
-stdout.write( 'Start Load Images... \n' )
+stdout.write( 'Start Load Images... ' )
 
 import os, cv2, glob
 import numpy as np
@@ -64,8 +67,6 @@ X_train = X_train.astype( 'float32' ) / 255.
 Y_train = Y_train.astype( 'float32' ) / 255.
 X_test = X_test.astype( 'float32' ) / 255.
 
-print( X_train.shape, Y_train.shape, X_test.shape )
-
 X_train = np.reshape( X_train, ( len( X_train ), SIZE, SIZE, 1 ) )
 Y_train = np.reshape( Y_train, ( len( Y_train ), SIZE, SIZE, 1 ) )
 X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
@@ -73,35 +74,44 @@ X_test = np.reshape( X_test, ( len( X_test ), SIZE, SIZE, 1 ) )
 print( 'train shape (X, Y): ({},{})'.format( X_train.shape, Y_train.shape ) )
 print( 'test shape (X): ({})'.format( X_test.shape ) )
 
-stdout.write( 'Finish Load Images! \n' )
+stdout.write( 'Finish Load Images! ' )
 
 # Construct Model #
-stdout.write( 'Start Make Model... \n' )
+stdout.write( 'Start Make Model... ' )
 
 ## Hyper Parameter ##
 kernel = ( 3, 3 )
 pooling = ( 2, 2 )
 acti, pad = 'relu', 'same'
 encoding_channels = [ 64, 32, 16 ]
-decoding_channels = reversed( encoding_channels )
+decoding_channels = list(reversed( encoding_channels ))
 
 ## Input Image ##
 input_img = layers.Input( shape = ( SIZE, SIZE, 1 ) )
 
 ## Encoding ##
-for i, channel in enumerate(encoding_channels):
-	if not i: # if i is 0
-		x = layers.Conv2D( channel, kernel, activation = acti, padding = pad )( input_img )
-	else:
-		x = layers.Conv2D( channel, kernel, activation = acti, padding = pad )( x )
-	x = layers.MaxPooling2D( pooling, padding = pad )( x )
+conv1 = layers.Conv2D( encoding_channels[0], kernel, activation = acti, padding = pad )( input_img )
+pool1 = layers.MaxPooling2D( pooling, padding = pad )( conv1 )
+
+conv2 = layers.Conv2D( encoding_channels[1], kernel, activation = acti, padding = pad )( pool1 )
+pool2 = layers.MaxPooling2D( pooling, padding = pad )( conv2 )
+
+conv3 = layers.Conv2D( encoding_channels[2], kernel, activation = acti, padding = pad )( pool2 )
+pool3 = layers.MaxPooling2D( pooling, padding= pad )( conv3 )
 
 ## Decoding ##
-for channel in decoding_channels:
-	x = layers.Conv2DTranspose( channel, kernel, activation = acti, padding = pad )( x )
-	x = layers.UpSampling2D( pooling )( x )
+conv4 = layers.Conv2D( decoding_channels[0], kernel, activation = acti, padding = pad )( pool3 )
+pool4 = layers.UpSampling2D( pooling )( conv4 )
 
-output = layers.Conv2DTranspose( 1, kernel, activation = 'sigmoid', padding = 'same' )( x )
+conv5 = layers.Conv2D( decoding_channels[1], kernel, activation = acti, padding = pad )( pool4 )
+pool5 = layers.UpSampling2D( pooling )( conv5 )
+
+conv6 = layers.Conv2D( decoding_channels[2], kernel, activation = acti, padding = pad )( pool5 )
+pool6 = layers.UpSampling2D( pooling )( conv6 )
+
+merge1 = layers.concatenate( [ conv1, pool6 ] )
+
+output = layers.Conv2D( 1, kernel, activation = 'sigmoid', padding = 'same' )( merge1 )
 
 ## Compile Model ##
 autoencoder = keras.models.Model( input_img, output )
@@ -109,10 +119,10 @@ autoencoder.compile( optimizer = 'adadelta', loss = 'binary_crossentropy' )
 
 autoencoder.summary()
 
-stdout.write( 'Finish Making Model! \n' )
+stdout.write( 'Finish Making Model! ' )
 
 # Train Model #
-stdout.write( 'Start Training Model... \n' )
+stdout.write( 'Start Training Model... ' )
 
 ## Hyper Parameter ##
 EPOCH = 50
@@ -121,10 +131,10 @@ SHUFFLE = True
 
 history = autoencoder.fit( X_train, Y_train, epochs = EPOCH, batch_size = BATCH, shuffle = SHUFFLE )
 
-stdout.write( 'Finish Train Model! \n' )
+stdout.write( 'Finish Train Model! ' )
 
 # Test Model #
-stdout.write( 'Start Testing Model... \n' )
+stdout.write( 'Start Testing Model... ' )
 decoded_img = autoencoder.predict( X_test )
 
 import matplotlib.pyplot as plt
@@ -150,9 +160,9 @@ for i in range( n ):
 plt.savefig( 'Result.png', dpi = 300 )
 plt.show()
 
-stdout.write( 'Finish Testing Model! \n' )
+stdout.write( 'Finish Testing Model! ' )
 
-stdout.write( 'Good job\n' )
+stdout.write( 'Good job' )
 
 output_stream.close()
 error_stream.close()
