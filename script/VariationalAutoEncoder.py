@@ -58,7 +58,7 @@ def DisplayImageSequence( x_start, y_start, x_end, y_end, no_of_imgs ):
 	plt.show()
 
 
-( x_train, _ ), ( x_test, _ ) = keras.datasets.mnist.load_data()
+( x_train, y_train ), ( x_test, y_test ) = keras.datasets.mnist.load_data()
 
 x_train = x_train / 255.
 x_test = x_test / 255.
@@ -87,3 +87,34 @@ sigma = layers.Dense( latent_dim )( encoder )
 
 latent_space = layers.Lambda( ComputeLatent, output_shape = ( latent_dim, ) )( [mu, sigma] )
 
+conv_shape = K.int_shape( encoder_conv )
+
+decoder_input = layers.Input( shape = ( latent_dim, ) )
+decoder = layers.Dense( conv_shape[1] * conv_shape[2] * conv_shape[3], activation = 'relu' )( decoder_input )
+decoder = layers.Reshape( ( conv_shape[1], conv_shape[2], conv_shape[3] ) )( decoder )
+decoder_conv = layers.Conv2DTranspose( 16, 3, strides = 2, padding = 'same', activation = 'relu' )( decoder )
+decoder_conv = layers.Conv2DTranspose( 8, 3, strides = 2, padding = 'same', activatioin = 'relu' )( decoder_conv )
+decoder_conv = layers.Conv2DTranspose( num_channels, 3, padding = 'same', activation = 'sigmoid' )( decoder_conv )
+
+encoder = keras.models.Model( encoder_input, latent_space )
+decoder = keras.models.Model( decoder_input, decoder_conv )
+vae = keras.models.Model( encoder_input, decoder( encoder( encoder_input ) ) )
+
+vae.compile( optimizer = 'adam', loss = kl_reconstruction_loss )
+
+history = vae.fit( x = x_train, y = y_train, epochs = 20, batch_size = 32, validation_data = ( x_test, x_test ) )
+
+plt.plot( history.history['loss'] )
+plt.plot( history.history['val_loss'] )
+
+encoded = encoder.predict( x_train )
+
+plt.figure( figsize = ( 14, 12 ) )
+plt.scatter( encoded[:, 0], encoded[:, 1], s = 2, c = y_train, cmap = 'hsv' )
+plt.colorbar()
+plt.grid()
+plt.show()
+
+DisplayImageSequence( 0, 2, 2, 0, 9 )
+DisplayImageSequence( -2, 1, 0, 2, 9 )
+DisplayImageSequence( 0, -2, 0, 2, 19 )
