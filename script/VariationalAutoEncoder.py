@@ -49,3 +49,29 @@ def DisplayImageSequence( x_start, y_start, x_end, y_end, no_of_imgs ):
 	plt.show()
 
 
+( x_train, _ ), ( x_test, _ ) = keras.datasets.mnist.load_data()
+
+x_train = x_train / 255.
+x_test = x_test / 255.
+
+shape = x_train.shape
+x_train = x_train.reshape( shape[0], shape[1], shape[2], 1 )
+
+shape = x_test.shape
+x_test = x_test.reshape( shape[0], shape[1], shape[2], 1 )
+
+img_height = x_train.shape[1]
+img_width = x_train.shape[2]
+num_channels = x_train.shape[3]
+
+input_shape = ( img_height, img_width, num_channels )
+latent_dim = 2
+
+encoder_input = layers.Input( shape = input_shape )
+encoder_conv = layers.Conv2D( 8, 3, strides = 2, padding = 'same', activation = 'relu' )( encoder_input )
+encoder_conv = layers.Conv2D( 16, 3, strides = 2, padding = 'same', activation = 'relu' )( encoder_conv )
+
+encoder = layers.Flatten()( encoder_conv )
+
+mu = layers.Dense( latent_dim )( encoder )
+sigma = layers.Dense( latent_dim )( encoder )
