@@ -75,3 +75,6 @@ encoder = layers.Flatten()( encoder_conv )
 
 mu = layers.Dense( latent_dim )( encoder )
 sigma = layers.Dense( latent_dim )( encoder )
+
+latent_space = layers.Lambda( ComputeLatent, output_shape = ( latent_dim, ) )( [mu, sigma] )
+
