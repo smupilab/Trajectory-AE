@@ -26,6 +26,15 @@ def ComputeLatent( x ):
 
 	return mu + K.exp( sigma / 2 ) * eps
 
+def kl_reconstruction_loss( true, pred ):
+	reconstruction_loss = keras.losses.binary_crossentropy( K.flatten(true), K.flatten(pred) ) * img_height * img_width
+
+	kl_loss = 1 + sigma - K.square(mu) - K.exp(sigma)
+	kl_loss =  K.sum( kl_loss, x_axis = -1 )
+	kl_loss *= -0.5
+
+	return K.mean( reconstruction_loss + kl_loss )
+
 def DisplayImageSequence( x_start, y_start, x_end, y_end, no_of_imgs ):
 	x_axis = np.linspace( x_start, x_end, no_of_imgs )
 	y_axis = np.linspace( y_start, y_end, no_of_imgs )
