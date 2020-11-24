@@ -1,5 +1,6 @@
 # Convert 0-1 Image into 0-255 Image
 import numpy as np
+from cv2init import init
 
 def drawNp(img: np.array) -> np.array:
     blank = init()
