@@ -5,3 +5,6 @@
     * Decoder에서 Conv2DTranpose 사용
   * FCN-8
   * Convolutional Denoising AutoEncoder(U-net)
+
+* Trajectory Augmentation
+ * VAE(Dataset: MNIST)
