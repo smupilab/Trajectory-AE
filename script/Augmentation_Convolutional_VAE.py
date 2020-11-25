@@ -26,7 +26,7 @@ trajectoryAugmentataionDir = '/home/taejin/Trajectory-Augmentation/'
 trajectoryDataDir = '/home/taejin/Trajectory_Data/'
 
 currDir = trajectoryAugmentataionDir + '/script/'
-dataDir = trajectoryDataDir + '/직접찍은데이터/'
+dataDir = trajectoryDataDir + '/VirtualData/'
 
 os.chdir( dataDir )
 files = glob.glob( '*csv' )
