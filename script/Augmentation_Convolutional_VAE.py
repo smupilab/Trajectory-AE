@@ -86,7 +86,7 @@ encoder = layers.Flatten()( encoder_conv )
 mu = layers.Dense( latent )( encoder )
 sigma = layers.Dense( latent )( encoder )
 
-latent_space = layers.Lambda( ComputeLatent, output_shape = ( latent_dim, ) )( [ mu, sigma ] )
+latent_space = layers.Lambda( ComputeLatent, output_shape = ( latent, ) )( [ mu, sigma ] )
 
 conv_shape = K.int_shape( encoder_conv )
 
