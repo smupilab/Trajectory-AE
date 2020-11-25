@@ -7,4 +7,4 @@
   * Convolutional Denoising AutoEncoder(U-net)
 
 * Trajectory Augmentation
- * VAE(Dataset: MNIST)
+  * VAE(Dataset: MNIST)
