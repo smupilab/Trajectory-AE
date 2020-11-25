@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from drawNp import drawNp
 
 # Convert csv File to Image
 def map2Image(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.DataFrame) -> np.array:

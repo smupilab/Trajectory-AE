@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import random
 
+from drawNp import drawNp
+
 # Convert csv File to Image with Noise
 def map2Image_noise(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.DataFrame) -> np.array:
     inputImage = np.zeros([512,512], dtype=np.uint8)
