@@ -22,8 +22,11 @@ import os, glob
 import numpy as np
 from utils import convertImage
 
-currDir = os.environ['TrajetoryAugmentation'] + '/script/'
-dataDir = os.environ['TrajectoryData'] + '/직접찍은데이터/'
+trajectoryAugmentataionDir = '/home/taejin/Trajectory-Augmentation/'
+trajectoryDataDir = '/home/taejin/Trajectory_Data/'
+
+currDir = trajectoryAugmentataionDir + '/script/'
+dataDir = trajectoryDataDir + '/직접찍은데이터/'
 
 os.chdir( dataDir )
 files = glob.glob( '*csv' )
