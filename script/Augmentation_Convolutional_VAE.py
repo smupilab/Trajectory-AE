@@ -64,7 +64,7 @@ stdout.write( 'Finish Load files! ' )
 # Constructing Model #
 import tensorflow as tf; tf.compat.v1.disable_eager_execution()
 from tensorflow import keras
-from tensorflow.kears import layers
+from tensorflow.keras import layers
 import tensorflow.keras.backend as K
 
 def ComputeLatent( x ):
