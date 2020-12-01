@@ -23,11 +23,11 @@ import numpy as np
 import pandas as pd
 from utils import convertImage
 
-trajectoryAugmentataionDir = '/home/taejin/Trajectory-Augmentation/'
-trajectoryDataDir = '/home/taejin/Trajectory_Data/'
+trajectoryAugmentataionDir = '/Users/graph/GitHub/Trajectory-Augmentation/'
+trajectoryDataDir = '/Users/grape/GitHub/Trajectory_Data/'
 
-currDir = trajectoryAugmentataionDir + '/script/'
-dataDir = trajectoryDataDir + '/VirtualData/'
+currDir = trajectoryAugmentataionDir + 'script/'
+dataDir = trajectoryDataDir + 'VirtualData/'
 
 os.chdir( dataDir )
 files = glob.glob( '*csv' )

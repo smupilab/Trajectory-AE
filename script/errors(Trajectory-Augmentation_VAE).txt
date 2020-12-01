@@ -1,36 +1,7 @@
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  np_resource = np.dtype([("resource", np.ubyte, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
-/usr/local/lib/python3.6/dist-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  np_resource = np.dtype([("resource", np.ubyte, 1)])
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+WARNING:tensorflow:From /Users/grape/opt/anaconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
 Instructions for updating:
-Call initializer instance with the dtype argument instead of passing it to the constructor
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/ops/math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
-Instructions for updating:
-Use tf.where in 2.0, which has the same broadcast rule as np.where
-/usr/local/lib/python3.6/dist-packages/matplotlib/image.py:446: UserWarning: Warning: converting a masked element to nan.
-  dv = np.float64(self.norm.vmax) - np.float64(self.norm.vmin)
-/usr/local/lib/python3.6/dist-packages/matplotlib/image.py:453: UserWarning: Warning: converting a masked element to nan.
-  a_min = np.float64(newmin)
-/usr/local/lib/python3.6/dist-packages/matplotlib/image.py:458: UserWarning: Warning: converting a masked element to nan.
-  a_max = np.float64(newmax)
+If using Keras pass *_constraint arguments to layers.
+Traceback (most recent call last):
+  File "Augmentation_Convolutional_VAE.py", line 142, in <module>
+    os.chdir( currDir )
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/graph/GitHub/Trajectory-Augmentation//script/'
