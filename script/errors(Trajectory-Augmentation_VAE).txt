@@ -1,7 +1,0 @@
-WARNING:tensorflow:From /Users/grape/opt/anaconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
-Instructions for updating:
-If using Keras pass *_constraint arguments to layers.
-Traceback (most recent call last):
-  File "Augmentation_Convolutional_VAE.py", line 142, in <module>
-    os.chdir( currDir )
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/graph/GitHub/Trajectory-Augmentation//script/'
