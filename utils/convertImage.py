@@ -12,12 +12,24 @@ def init() -> np.array:
     return blank
 
 # Convert 0-1 Images into 0-255 Image
-def drawNp(img: np.array) -> np.array:
+def drawNp( img: np.array, dotForm = 0 ) -> np.array:
+    '''
+    dotForm = 0 : 1x1 dot
+    dotForm = 1 : crosshead (3x3)
+    dotForm = 2 : 3x3 dot
+    '''
     blank = init()
-    for i in range(0,img.shape[0]):
-        for j in range(0,img.shape[1]):
+
+    rowDiff = [ [ 0 ], [ -1, 0, 0, 0, 1 ], [ -1, -1, -1, 0, 0, 0, 1, 1, 1 ] ]
+    colDiff = [ [ 0 ], [ 0, -1, 0, 1, 0 ], [ -1, 0, 1, -1, 0, 1, -1, 0, 1 ] ]
+
+    for i in range( 0, img.shape[0] ):
+        for j in range( 0, img.shape[1] ):
             if img[i][j] == 1 :
-                blank[i][j] = 255
+                for rr, cc in zip( rowDiff[dotForm], colDiff[dotForm] ):
+                    newRow, newCol = i + rr, j + cc
+                    if ( 0 <= newRow < img.shape[0] and 0 <= newCol < img.shape[1] ):
+                        blank[newRow][newCol] = 255
 
     return blank
 
