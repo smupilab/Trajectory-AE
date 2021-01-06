@@ -6,7 +6,7 @@ import pandas as pd
 # 빈 캔버스 만들기
 def init() -> np.array: 
     blank = np.zeros([512,512],dtype=np.uint8)
-    blank.fill(255)
+    blank.fill(0)
     blank = cv2.resize(blank,(512,512))
 
     return blank
@@ -17,7 +17,7 @@ def drawNp(img: np.array) -> np.array:
     for i in range(0,img.shape[0]):
         for j in range(0,img.shape[1]):
             if img[i][j] == 1 :
-                blank[i][j] = 0
+                blank[i][j] = 255
 
     return blank
 
