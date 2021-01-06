@@ -12,7 +12,7 @@ def init() -> np.array:
     return blank
 
 # Convert 0-1 Images into 0-255 Image
-def drawNp( img: np.array, dotForm = 0 ) -> np.array:
+def drawNp( img: np.array, dotForm ) -> np.array:
     '''
     dotForm = 0 : 1x1 dot
     dotForm = 1 : crosshead (3x3)
@@ -35,8 +35,10 @@ def drawNp( img: np.array, dotForm = 0 ) -> np.array:
 
 
 # Convert csv File to Image
-def map2Image(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.DataFrame) -> np.array:
+def map2Image(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
     inputImage = np.zeros([512,512], dtype=np.uint8)
+
+    minX, minY, maxX, maxY = min_max
 
     for i in range(0,csv_file.shape[0]):
         x = csv_file.loc[i][0]
@@ -47,7 +49,7 @@ def map2Image(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.D
         mapY = int(round(np.interp(y,[minY,maxY],[0,500])))
         inputImage[mapX][mapY] = 1
 
-    outputImage = drawNp(inputImage)
+    outputImage = drawNp(inputImage, dot)
 
     rotImage = np.rot90(outputImage)
 
@@ -55,8 +57,10 @@ def map2Image(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.D
 
 
 # Convert csv File to Image with Noise
-def map2Image_noise(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.DataFrame) -> np.array:
+def map2Image_noise(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
     inputImage = np.zeros([512,512], dtype=np.uint8)
+
+    minX, minY, maxX, maxY = min_max
 
     randomList = set()
     while len(randomList) < int(csv_file.shape[0] / 7):
@@ -90,15 +94,17 @@ def map2Image_noise(minX: float, minY: float, maxX: float, maxY: float, csv_file
             inputImage[mapX][mapY] = 1
 
 
-    outputImage = drawNp(inputImage)
+    outputImage = drawNp(inputImage, dot)
 
     rotImage = np.rot90(outputImage)
 
     return rotImage
 
 
-def map2Image_remove(minX: float, minY: float, maxX: float, maxY: float, csv_file: pd.DataFrame) -> np.array:
+def map2Image_remove(min_max: tuple, dot:int, csv_file: pd.DataFrame) -> np.array:
     inputImage = np.zeros([512,512], dtype=np.uint8)
+
+    minX, minY, maxX, maxY = min_max
 
     removeList = [ ]
     fileNum = csv_file.shape[0]
@@ -121,7 +127,7 @@ def map2Image_remove(minX: float, minY: float, maxX: float, maxY: float, csv_fil
         mapY = int(round(np.interp(y,[minY,maxY],[0,500])))
         inputImage[mapX][mapY] = 1
 
-    outputImage = drawNp(inputImage)
+    outputImage = drawNp(inputImage, dot)
 
     rotImage = np.rot90(outputImage)
 
