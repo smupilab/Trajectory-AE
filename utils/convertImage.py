@@ -40,9 +40,9 @@ def map2Image(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
 
     minX, minY, maxX, maxY = min_max
 
-    for i in range(0,csv_file.shape[0]):
-        x = csv_file.loc[i][0]
-        y = csv_file.loc[i][1]
+    for i in range( 0, len( csv_file ) ):
+        x = csv_file.loc[i]['lat']
+        y = csv_file.loc[i]['long']
 
         # Print Dot
         mapX = int(round(np.interp(x,[minX,maxX],[0,500])))
@@ -58,18 +58,18 @@ def map2Image(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
 
 # Convert csv File to Image with Noise
 def map2Image_noise(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
-    inputImage = np.zeros([512,512], dtype=np.uint8)
+    inputImage = np.zeros( [ 512, 512 ], dtype = np.uint8 )
 
     minX, minY, maxX, maxY = min_max
 
     randomList = set()
-    while len(randomList) < int(csv_file.shape[0] / 7):
-        randomList.add(random.randint(0,csv_file.shape[0]))
+    while len( randomList ) < int( len( csv_file ) / 7):
+        randomList.add( random.randint( 0,len( csv_file ) ) )
 
-    randomList=list(randomList)
-    dicisionList = [1,-1]
+    randomList = list( randomList )
+    dicisionList = [ 1, -1 ]
 
-    for i in range(0, csv_file.shape[0]):
+    for i in range( 0, len( csv_file ) ):
         try:
             # Generate Noise
             randomList.index(i)
@@ -77,8 +77,8 @@ def map2Image_noise(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.arra
             r = random.uniform((minX - maxX) / 40,(minX - maxX) / 20)
             D = random.choice(dicisionList)
 
-            x = csv_file.loc[i][0] - (D * r)
-            y = csv_file.loc[i][1] - (D * r)
+            x = csv_file.loc[i]['lat'] - (D * r)
+            y = csv_file.loc[i]['long'] - (D * r)
 
             # Paint dot
             mapX = int(round(np.interp(x,[minX,maxX],[0,500])))
@@ -86,8 +86,8 @@ def map2Image_noise(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.arra
             inputImage[mapX][mapY] = 1
 
         except:
-            x = csv_file.loc[i][0]
-            y = csv_file.loc[i][1]
+            x = csv_file.loc[i]['lat']
+            y = csv_file.loc[i]['long']
 
             mapX = int(round(np.interp(x,[minX,maxX],[0,500])))
             mapY = int(round(np.interp(y,[minY,maxY], [0,500])))
@@ -101,13 +101,13 @@ def map2Image_noise(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.arra
     return rotImage
 
 
-def map2Image_remove(min_max: tuple, dot:int, csv_file: pd.DataFrame) -> np.array:
+def map2Image_remove(min_max: tuple, dot: int, csv_file: pd.DataFrame) -> np.array:
     inputImage = np.zeros([512,512], dtype=np.uint8)
 
     minX, minY, maxX, maxY = min_max
 
     removeList = [ ]
-    fileNum = csv_file.shape[0]
+    fileNum = len( csv_file )
     for _ in range( int( fileNum * 0.5 ) ):
         idx = random.randint( 0, fileNum )
         while ( idx in removeList ):
@@ -119,8 +119,8 @@ def map2Image_remove(min_max: tuple, dot:int, csv_file: pd.DataFrame) -> np.arra
         if ( i in removeList ):
             continue
 
-        x = csv_file.loc[i][0]
-        y = csv_file.loc[i][1]
+        x = csv_file.loc[i]['lat']
+        y = csv_file.loc[i]['long']
 
         # Print Dot
         mapX = int(round(np.interp(x,[minX,maxX],[0,500])))
@@ -136,11 +136,11 @@ def map2Image_remove(min_max: tuple, dot:int, csv_file: pd.DataFrame) -> np.arra
 
 # Return Max and Min X,Y Coordinate Value of file
 def coorMaxMin(file: pd.DataFrame) -> (float, float, float, float):
-    minX, minY = (file.loc[0][0], file.loc[0][1])
-    maxX, maxY = (file.loc[0][0], file.loc[0][1])
-    for i in range(0,file.shape[0]):
-        x = file.loc[i][0]
-        y = file.loc[i][1]
+    minX, minY = ( file.loc[0]['lat'], file.loc[0]['long'] )
+    maxX, maxY = ( file.loc[0]['lat'], file.loc[0]['long'] )
+    for i in range( 1, len( file ) ):
+        x = file.loc[i]['lat']
+        y = file.loc[i]['long']
         if x > maxX :
             maxX = x
         if x < minX :
