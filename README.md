@@ -1,6 +1,6 @@
 # Trajectory-AE
-AutoEncoder를 이용한 GPS Trajectory Data Augmentation/Denoising
-
+AutoEncoder를 이용한 GPS Trajectory Data Augmentation, Denoising
+and clustering
 ## Denoising
 * Convolutional Denoising AutoEncoder
   * Decoder에서 Conv2D 사용
