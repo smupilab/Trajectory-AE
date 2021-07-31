@@ -1,5 +1,10 @@
 <!-- README.md -->
-Code 설명
+# Code 설명
+- Trajectory Clustering 19
+    - Auto Encoder 학습 + 간단한 Path Search
+    - Path Search
+        - 전체 이미지 중 특정 이미지와 비슷한 이미지 모두 찾기
+        - 즉, 두 이미지의 Low Dimension의 Cosine Similarity가 특정 임곗값 이하인 이미지
 - Trajectory Clustering 21
     - Path Search + Low Dimension data 저장
 - Trajectory Clustering 22
