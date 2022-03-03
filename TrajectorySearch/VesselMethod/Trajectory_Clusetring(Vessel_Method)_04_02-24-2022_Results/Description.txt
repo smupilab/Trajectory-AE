@@ -1,0 +1,3 @@
+Train Autoencoder model with 64x64 images and convert into low dimension
+
+Image size: 64 x 64
